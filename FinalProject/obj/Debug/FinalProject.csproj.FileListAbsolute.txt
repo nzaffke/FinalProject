@@ -8,3 +8,4 @@ C:\Users\ekffa\repos\FinalProject\FinalProject\obj\Debug\FinalProject.csproj.Gen
 C:\Users\ekffa\repos\FinalProject\FinalProject\obj\Debug\FinalProject.csproj.CoreCompileInputs.cache
 C:\Users\ekffa\repos\FinalProject\FinalProject\obj\Debug\FinalProject.exe
 C:\Users\ekffa\repos\FinalProject\FinalProject\obj\Debug\FinalProject.pdb
+C:\Users\ekffa\repos\FinalProject\FinalProject\bin\Debug\Various-04.wav

@@ -33,6 +33,10 @@ namespace FinalProject
         int left = 0, top = 0, speed = 70, n = 5, ci, cj, E = 0;
         List<SP> P = new List<SP>();
         SoundPlayer sp = new SoundPlayer(Environment.GetFolderPath(0) + "\\Various-04.wav");
+        //soundplayer player = new soundplayer();
+        //player.soundlocation = appdomain.currentdomain.basedirectory + "\\various-04.wav";
+        //player.play();
+
         public Form1()
         {
             InitializeComponent();
@@ -62,7 +66,7 @@ namespace FinalProject
             t = new Label();
             playa = new Label();
             Se = new Label();
-            F(playa, "Play agian", 30, 500, 125, Color.Transparent);
+            F(playa, "Play again", 30, 500, 125, Color.Transparent);
             F(play, "\u25B6 Play", 80, 500, 125, Color.Transparent);
             F(t, "Game Over", 50, 500, 125, Color.Transparent);
             F(Se, "0", 30, 760, 48, Color.Green);
