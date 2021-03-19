@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Media;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -25,7 +26,8 @@ namespace FinalProject
     }
     public partial class Form1 : Form
     {
-        Timer A, C;
+        private System.Windows.Forms.Timer gameLoop = new System.Windows.Forms.Timer();
+        System.Windows.Forms.Timer A, C;
         Panel G, M, D, PSe;
         Label play, t, playa, Se;
         Label[,] L;
@@ -33,6 +35,9 @@ namespace FinalProject
         int left = 0, top = 0, speed = 70, n = 5, ci, cj, E = 0;
         List<SP> P = new List<SP>();
         SoundPlayer sp = new SoundPlayer(Environment.GetFolderPath(0) + "\\Various-04.wav");
+
+        public string SRP { get; private set; }
+
         //soundplayer player = new soundplayer();
         //player.soundlocation = appdomain.currentdomain.basedirectory + "\\various-04.wav";
         //player.play();
@@ -97,16 +102,16 @@ namespace FinalProject
             M.Controls.Add(play);
             D.Controls.Add(t);
             D.Controls.Add(playa);
-            A = new Timer();
-            C = new Timer();
+            A = new System.Windows.Forms.Timer();
+            C = new System.Windows.Forms.Timer();
             A.Interval = speed;
             C.Interval = 250;
             A.Tick += A_Tick;
             C.Tick += C_Tick;
             L = new Label[28, 28];
-            for(int i = 0; i < 28; i++)
+            for (int i = 0; i < 28; i++)
             {
-                for(int j = 0; j < 28; j++)
+                for (int j = 0; j < 28; j++)
                 {
                     L[i, j] = new Label();
                     L[i, j].AutoSize = false;
@@ -134,7 +139,7 @@ namespace FinalProject
             else
                 if (M.Visible)
             {
-                if(play.ForeColor == Color.White)
+                if (play.ForeColor == Color.White)
                 {
                     play.ForeColor = Color.DarkGreen;
                     play.Text = '\u25B6' + "Play";
@@ -163,7 +168,7 @@ namespace FinalProject
         }
         public void F(object c, string text, float fsize, int w, int h, Color color)
         {
-            if(c is Label)
+            if (c is Label)
             {
                 Label l = c as Label;
                 l.TextAlign = ContentAlignment.MiddleCenter;
@@ -190,14 +195,14 @@ namespace FinalProject
                 p.Visible = b;
             }
         }
-        private void A_Tick (object sender, EventArgs e)
+        private void A_Tick(object sender, EventArgs e)
         {
             ci = P[n - 1].i;
             cj = P[n - 1].j;
-            if(s == "B L" || s == "T L")
+            if (s == "B L" || s == "T L")
             {
                 L[P[0].i, P[0].j].BackColor = Color.Green;
-                if((cj - (1)) >= 0)
+                if ((cj - (1)) >= 0)
                 {
                     if (L[ci, cj - (1)].BackColor == Color.DarkGreen)
                     {
@@ -216,9 +221,9 @@ namespace FinalProject
                         Se.Text = E + "";
                         R();
                     }
-                    else if (L[ci, cj - (1)].BackColor == Color.Black) { S();}
+                    else if (L[ci, cj - (1)].BackColor == Color.Black) { S(); }
                     L[ci, cj - (1)].BackColor = Color.Black;
-                    for(int i = 0; i < n - 1; i++)
+                    for (int i = 0; i < n - 1; i++)
                     {
                         P[i].i = P[i + 1].i;
                         P[i].j = P[i + 1].j;
@@ -229,12 +234,12 @@ namespace FinalProject
                 else { S(); }
             }
             else
-                if(s == "T R" || s == "B R")
+                if (s == "T R" || s == "B R")
             {
                 L[P[0].i, P[0].j].BackColor = Color.Green;
-                if((cj + (1)) <= 27)
+                if ((cj + (1)) <= 27)
                 {
-                    if(L[ci, cj + (1)].BackColor == Color.DarkGreen)
+                    if (L[ci, cj + (1)].BackColor == Color.DarkGreen)
                     {
                         P.Add(new SP(P[n - 1].i, P[n - 1].j + 1));
                         n++;
@@ -263,20 +268,20 @@ namespace FinalProject
                 else { S(); }
             }
             else
-                if(s == "L B" || s == "R B")
+                if (s == "L B" || s == "R B")
             {
                 L[P[0].i, P[0].j].BackColor = Color.Green;
-                if((ci + (1)) <= 27)
+                if ((ci + (1)) <= 27)
                 {
-                    if(L[ci + (1), cj].BackColor == Color.DarkGreen)
+                    if (L[ci + (1), cj].BackColor == Color.DarkGreen)
                     {
                         P.Add(new SP(P[n - 1].i + 1, P[n - 1].j));
                         n++;
                         Se.Text = ++E + "";
                         R();
                     }
-                    else 
-                        if(L[ci + (1), cj].BackColor == Color.Gold)
+                    else
+                        if (L[ci + (1), cj].BackColor == Color.Gold)
                     {
                         P.Add(new SP(P[n - 1].i + 1, P[n - 1].j));
                         P.Add(new SP(P[n - 1].i + 2, P[n - 1].j));
@@ -298,20 +303,20 @@ namespace FinalProject
                 else { S(); }
             }
             else
-                if(s == "L T" || s == "R T")
+                if (s == "L T" || s == "R T")
             {
                 L[P[0].i, P[0].j].BackColor = Color.Green;
                 if ((ci - (1)) >= 0)
                 {
-                    if(L[ci - (1), cj].BackColor == Color.DarkGreen)
+                    if (L[ci - (1), cj].BackColor == Color.DarkGreen)
                     {
                         P.Add(new SP(P[n - 1].i - 1, P[n - 1].j));
                         n++;
                         Se.Text = ++E + "";
                         R();
                     }
-                    else 
-                        if (L[ci - (1), cj]. BackColor == Color.Gold)
+                    else
+                        if (L[ci - (1), cj].BackColor == Color.Gold)
                     {
                         P.Add(new SP(P[n - 1].i - 1, P[n - 1].j));
                         P.Add(new SP(P[n - 1].i - 2, P[n - 1].j));
@@ -333,16 +338,17 @@ namespace FinalProject
                 else { S(); }
             }
         }
+
         public void S() { sp.Play(); A.Enabled = false; System.Threading.Thread.Sleep(1000); G.Visible = false; D.Visible = true; }
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
-            if(keyData == Keys.Down && s != "L B" && s != "R B" && s != "L T" && s != "R T")
+            if (keyData == Keys.Down && s != "L B" && s != "R B" && s != "L T" && s != "R T")
             {
                 s = s.Split(' ')[1] + " B";
                 return true;
             }
-            else 
-                if(keyData == Keys.Up && s != "L B" && s != "R B" && s != "L T" && s != "R T")
+            else
+                if (keyData == Keys.Up && s != "L B" && s != "R B" && s != "L T" && s != "R T")
             {
                 s = s.Split(' ')[1] + " T";
                 return true;
@@ -356,10 +362,24 @@ namespace FinalProject
             else
                 if (keyData == Keys.Right && s != "T R" && s != "B R" && s != "T L" && s != "B L")
             {
-                 s = s.Split(' ')[1] + " R";
+                s = s.Split(' ')[1] + " R";
                 return true;
+            }
+            else
+                if(keyData == Keys.Space)
+            {
+                
+                while(true)
+                {
+                    if (keyData == Keys.Space)
+                    {
+                        Thread.Sleep(10000);
+                        break;
+                    }
+                }
             }
             return base.ProcessCmdKey(ref msg, keyData);
         }
     }
+    
 }
